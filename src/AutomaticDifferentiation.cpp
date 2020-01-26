@@ -43,6 +43,22 @@ class AD {
    // AD variables can have a name
    std::string name;
 
+
+   // constructor for base variable initilization
+   AD(Number val, int space_size, int grad_index, std::string name="ADvar"){
+      value = val;            // AD value
+      space_dim = space_size; // size of design space
+      index = grad_index;     // which index in the gradient
+      name=name;              // variable name 
+
+      //Eigen intrinsic for initialization
+      grad.setZero(space_size);
+      hess.setZero(space_size, space_size);
+
+      grad(index) = 1.0;
+   }
+
+
 };
 
 int main() {
