@@ -72,6 +72,15 @@ class AD {
    }
 
 
+   //-------------------------
+   // printing
+   void print_value();
+   void print_grad();
+   void print_hess();
+   void print_size();
+   void print();
+
+
 };
 
 
@@ -107,6 +116,8 @@ int main() {
    std::cout  << "Eigen version: " << EIGEN_MAJOR_VERSION  << "."<< EIGEN_MINOR_VERSION  << std::endl;
    AD a(2.0, 2, 0, "a");
    AD b(3.0, 2, 1, "b");
+   a.print();
+   b.print();
 
    return 0;
 }
