@@ -1,0 +1,72 @@
+# usage> make -f .\MakefileWindows
+
+##########################################################################################
+
+# Specify library locations here (add or remove "#" marks to comment/uncomment lines for your platform)
+
+# Mac OS X
+# BNCpp_INCLUDE_PATH      =
+# BNCpp_LIBRARY_PATH      =
+# BNCpp_BLAS_LIBS         = -framework Accelerate
+# BNCpp_SUITESPARSE_LIBS  = -lspqr -lumfpack -lcholmod -lmetis -lcolamd -lccolamd -lcamd -lamd -ltbb -lm -lsuitesparseconfig
+# BNCpp_OPENGL_LIBS       = -framework OpenGL -framework GLUT
+
+# # Linux
+# BNCpp_INCLUDE_PATH      =
+# BNCpp_LIBRARY_PATH      =
+#BNCpp_BLAS_LIBS         = -llapack -lblas -lgfortran
+# # BNCpp_SUITESPARSE_LIBS  = -lspqr -lcholmod -lmetis -lcolamd -lccolamd -lcamd -lamd -lm
+# # BNCpp_OPENGL_LIBS       = -lglut -lGL -lGLU -lX11
+# BNCpp_SUITESPARSE_LIBS  = -lspqr -lcholmod -lcolamd -lccolamd -lcamd -lamd -lm -lumfpack -lamd #-lmetis 
+# BNCpp_OPENGL_LIBS       = -lGL -lGLU -lglut -lGLEW #-lX11
+
+# # Windows / Cygwin
+# BNCpp_INCLUDE_PATH      = -I/usr/include/opengl -I/usr/include/suitesparse
+# BNCpp_LIBRARY_PATH      = -L/usr/lib/w32api -L/usr/lib/suitesparse
+# BNCpp_BLAS_LIBS         = -llapack -lblas
+# BNCpp_SUITESPARSE_LIBS  = -lspqr -lcholmod -lcolamd -lccolamd -lcamd -lamd -lm
+# BNCpp_OPENGL_LIBS       = -lglut32 -lglu32 -lopengl32
+
+# # Windows / Cygwin again
+BNCpp_INCLUDE_PATH      = 
+BNCpp_LIBRARY_PATH      = 
+BNCpp_BLAS_LIBS         = 
+BNCpp_SUITESPARSE_LIBS  = 
+BNCpp_OPENGL_LIBS       = 
+########################################################################################
+
+# TARGET = run/BNcpp
+# CC = g++
+# LD = g++
+# CFLAGS = -O3 -std=c++17  -Wall -Werror -ansi -pedantic  $(BNCpp_INCLUDE_PATH) -I./include -I./src
+# LFLAGS = -O3 -Wall -Werror -ansi -pedantic $(BNCpp_LIBRARY_PATH)
+# LIBS = $(BNCpp_OPENGL_LIBS) $(BNCpp_SUITESPARSE_LIBS) $(BNCpp_BLAS_LIBS)
+
+########################################################################################
+
+TARGET = run/DMYCpp
+CC = g++
+LD = g++
+CFLAGS = -O3 -Wall  $(DMYCpp_INCLUDE_PATH) -I./include -I./src
+LFLAGS = -O3 -Wall  $(DMYCpp_LIBRARY_PATH)
+LIBS = $(DMYCpp_OPENGL_LIBS) $(DMYCpp_SUITESPARSE_LIBS) $(DMYCpp_BLAS_LIBS)
+
+########################################################################################
+## !! Do not edit below this line
+
+HEADERS := $(wildcard include/*.h)
+SOURCES := $(wildcard src/*.cpp)
+OBJECTS := $(addprefix obj/,$(notdir $(SOURCES:.cpp=.o)))
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(LD) $(OBJECTS) -o $(TARGET) $(CFLAGS) $(LFLAGS) $(LIBS)
+
+obj/%.o: src/%.cpp ${HEADERS}
+	$(CC) -c $< -o $@ $(CFLAGS) 
+
+clean:
+	rm -f $(OBJECTS)
+	rm -f $(TARGET)
+	rm -f $(TARGET).exe
