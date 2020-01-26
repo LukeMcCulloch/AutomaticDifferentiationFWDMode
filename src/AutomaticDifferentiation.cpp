@@ -30,9 +30,10 @@ class AD {
    Eigen::Matrix<Number, Dynamic, 1> grad;
    Eigen::Matrix<Number, Dynamic, Dynamic> hess;
 
-
+   // shape of the hessian (redundant really)
    Eigen::Matrix<int, 2, 1> shape;
 
+   // number of design space dimensions
    int space_dim;
 
    // location in the gradient space - i.e. where this variable "lives"
