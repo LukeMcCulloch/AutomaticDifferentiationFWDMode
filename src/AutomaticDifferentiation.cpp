@@ -74,7 +74,39 @@ class AD {
 
 };
 
+
+void AD::print()
+{
+   std::cout << "AD(" << name << std::endl;
+   print_size();
+   print_value();
+   print_grad();
+   print_hess();
+   std::cout << "    )\n\n" << std::endl;
+}
+
+void AD::print_value()
+{
+  std::cout << " value: " << value << "" << std::endl;
+}
+void AD::print_grad()
+{
+  std::cout << " grad: \n" << grad << "" << std::endl;
+}
+void AD::print_hess()
+{
+  std::cout << " hess: \n" << hess << "" << std::endl;
+}
+
+void AD::print_size()
+{
+  std::cout << " design space size: (" << space_dim << ")" << std::endl;
+}
+
 int main() {
+   std::cout  << "Eigen version: " << EIGEN_MAJOR_VERSION  << "."<< EIGEN_MINOR_VERSION  << std::endl;
+   AD a(2.0, 2, 0, "a");
+   AD b(3.0, 2, 1, "b");
 
    return 0;
 }
