@@ -27,7 +27,7 @@ OPENGL_LIBS       = -lGL -lGLU -lglut -lGLEW #-lX11
 
 ########################################################################################
 
-TARGET = run/BNcpp
+TARGET = run/ADcpp
 CC = g++
 LD = g++
 CFLAGS = -O3 -std=c++17  -Wall -Werror=c++-compat -ansi -pedantic  $(INCLUDE_PATH) 
