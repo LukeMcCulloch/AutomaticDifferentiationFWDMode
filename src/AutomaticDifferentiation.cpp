@@ -74,6 +74,7 @@ class AD {
    //-------------------------
    // operations
    AD operator+(AD other);
+   AD operator-(AD other);
 
    //-------------------------
    // printing
@@ -103,6 +104,16 @@ AD AD::operator+(AD other) {
    result.hess = hess + other.hess;
    return result;
 
+}
+
+AD AD::operator-(AD other) {
+
+   Number new_value = value - other.value;
+   int space_size = space_dim;
+   AD result(new_value, space_size);
+   result.grad = grad - other.grad;
+   result.hess = hess - other.hess;
+   return result;
 }
 
 
@@ -147,6 +158,9 @@ int main() {
 
    AD c = a + b;
    c.print();
+
+   AD d = c - a;
+   d.print();
 
    return 0;
 }
