@@ -59,6 +59,19 @@ class AD {
    }
 
 
+   // constructor for operations
+   AD(Number val, int space_size, std::string name="ADvar"){
+      value = val;            // AD value
+      space_dim = space_size; // size of design space
+      //index = index;     // which index in the gradient
+      name=name;
+
+      grad.setZero(space_size);
+      hess.setZero(space_size, space_size);
+
+   }
+
+
 };
 
 int main() {
