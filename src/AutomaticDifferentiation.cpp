@@ -75,6 +75,7 @@ class AD {
    // operations
    AD operator+(AD other);
    AD operator-(AD other);
+   AD operator*(AD other);
 
    //-------------------------
    // printing
@@ -96,7 +97,7 @@ class AD {
 AD AD::operator+(AD other) {
 
    Number new_value = value + other.value;
-   std::cout << " adding " << value << " to " << other.value << std::endl;
+   //std::cout << " adding " << value << " to " << other.value << std::endl;
    int space_size = space_dim;
 
    AD result(new_value, space_size);
@@ -114,6 +115,32 @@ AD AD::operator-(AD other) {
    result.grad = grad - other.grad;
    result.hess = hess - other.hess;
    return result;
+}
+
+AD AD::operator*(AD other) {
+
+   Number new_value = value * other.value;
+   int space_size = space_dim;
+
+   AD result(new_value, space_size);
+
+   result.grad = grad*other.value + other.grad*value;
+
+/**/
+   result.hess = other.value*hess + \
+         other.grad * grad.transpose() + \
+         grad * other.grad.transpose() + \
+         other.hess * value;
+//         grad.transpose() * other.grad;
+/*
+    + \
+                 ( grad.transpose() ).dot(other.grad) + \
+                 ( other.grad.transpose() ).dot(grad) + \
+                 ( value * other.hess );
+*/
+
+   return result;
+
 }
 
 
@@ -162,5 +189,7 @@ int main() {
    AD d = c - a;
    d.print();
 
+   AD e = a * b;
+   e.print();
    return 0;
 }
