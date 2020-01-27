@@ -2,10 +2,20 @@
 
 #include <iostream>
 
-
+//--------------------
+// Linux:
+#ifdef __linux__ 
 #include <eigen/Eigen/Dense>
 #include  <eigen/Eigen/Core>
 
+//--------------------
+// Windows:
+#elif _WIN32
+#include <Eigen\Dense>
+#include  <Eigen\Core>
+#else
+
+#endif
 
 typedef float Number;
 
