@@ -13,8 +13,13 @@
 #elif _WIN32
 #include <Eigen\Dense>
 #include  <Eigen\Core>
-#else
 
+//--------------------
+// OSX (not correct yet)
+#elif __APPLE__ 
+#include <eigen/Eigen/Dense>
+#include  <eigen/Eigen/Core>
+#else
 #endif
 
 typedef float Number;
