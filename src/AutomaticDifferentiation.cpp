@@ -2,10 +2,25 @@
 
 #include <iostream>
 
-
+//--------------------
+// Linux:
+#ifdef __linux__ 
 #include <eigen/Eigen/Dense>
 #include  <eigen/Eigen/Core>
 
+//--------------------
+// Windows:
+#elif _WIN32
+#include <Eigen\Dense>
+#include  <Eigen\Core>
+
+//--------------------
+// OSX (not correct yet)
+#elif __APPLE__ 
+#include <eigen/Eigen/Dense>
+#include  <eigen/Eigen/Core>
+#else
+#endif
 
 typedef float Number;
 
@@ -127,11 +142,8 @@ AD AD::operator*(AD other) {
 
    Number new_value = value * other.value;
    int space_size = space_dim;
-
    AD result(new_value, space_size);
-
    result.grad = grad*other.value + other.grad*value;
-
    result.hess =  other.value*hess + \
                   other.grad * grad.transpose() + \
                   grad * other.grad.transpose() + \
@@ -190,7 +202,7 @@ AD AD::operator/(AD other) {
    // compute the gradient (memory efficient):
    result.grad = (other.value*grad - value*other.grad)/(bottom);
 
-   // compute the Hessian (memory efficient):
+   // compute the Hessian (without temporaries this time):
    result.hess =  (  bottom * \
                               (
                                  (
