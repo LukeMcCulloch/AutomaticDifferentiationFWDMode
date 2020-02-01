@@ -342,5 +342,14 @@ int main() {
    AD f = a/b;
    f.print();
 
+   AD s1 = a+1.0;
+   AD s2 = a-1.0;
+   AD s3 = a*1.0;
+   AD s4 = a/1.0;
+   s1.print();
+   s2.print();
+   s3.print();
+   s4.print();
+
    return 0;
 }
