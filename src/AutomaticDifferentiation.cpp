@@ -78,6 +78,11 @@ class AD {
    AD operator*(AD other);
    AD operator/(AD other);
 
+   AD operator+(Number other);
+   AD operator-(Number other);
+   AD operator*(Number other);
+   //AD operator/(Number other);
+
    //-------------------------
    // printing
    void print_value();
@@ -211,9 +216,125 @@ AD AD::operator/(AD other) {
 }
 
 
+//----------------------------------------------------------------------
+// left var is AD, right var is Number
+
+
+AD AD::operator+(Number other) {
+
+   Number new_value = value + other;
+   //std::cout << " adding " << value << " to " << other.value << std::endl;
+   int space_size = space_dim;
+
+   AD result(new_value, space_size);
+   result.grad = grad;
+   result.hess = hess;
+   return result;
+
+}
+
+AD AD::operator-(Number other) {
+
+   Number new_value = value - other;
+   int space_size = space_dim;
+   AD result(new_value, space_size);
+   result.grad = grad;
+   result.hess = hess;
+   return result;
+}
+
+AD AD::operator*(Number other) {
+
+   Number new_value = value * other;
+   int space_size = space_dim;
+
+   AD result(new_value, space_size);
+
+   result.grad = grad*other;
+
+   result.hess =  other*hess;
+
+   return result;
+
+}
+
+
+// AD AD::operator/(Number other) {
+
+//    Number new_value = value / other.value;
+//    int space_size = space_dim;
+
+//    AD result(new_value, space_size);
+
+//    // store components of the gradient:
+//    // scalar:
+//    Number bottom = other.value*other.value;
+//    /*
+//    // vector:
+//    Eigen::Matrix<Number, Dynamic, 1> top;
+//    top.setZero(space_size);
+//    top = other.value*grad - value*other.grad;
+
+
+//    // compute the gradient:
+//    result.grad = (top)/(bottom);
+
+
+//    // store components of the Hessian:
+//    Eigen::Matrix<Number, Dynamic, 1> dbottom;
+//    dbottom.setZero(space_size);
+//    dbottom = other.value*other.grad - other.value*other.grad;
+
+//    // store components of the Hessian:
+//    Eigen::Matrix<Number, Dynamic, Dynamic>  dtop;
+//    dtop.setZero(space_size, space_size);
+//    dtop =   (
+//                other.grad * grad.transpose() + \
+//                other.value * hess
+//             ) - \
+//             (
+//                grad * other.grad.transpose() + \
+//                value*other.hess
+//             );
+
+//    // compute the Hessian:
+//    result.hess = ( (bottom * dtop) - (top * dbottom.transpose()) )  / (bottom*bottom);
+//    */
+
+//    // more efficient (?) (drops the temporaries... 
+//    // which makes for extra computation but less memory action)
+//    /**/
+//    // compute the gradient (memory efficient):
+//    result.grad = (other.value*grad - value*other.grad)/(bottom);
+
+//    // compute the Hessian (memory efficient):
+//    result.hess =  (  bottom * \
+//                               (
+//                                  (
+//                                     other.grad * grad.transpose() + \
+//                                     other.value * hess
+//                                  ) - \
+//                                  (
+//                                     grad * other.grad.transpose() + \
+//                                     value*other.hess
+//                                  )
+//                               )
+//                               - 
+//                      (
+//                         (other.value*grad - value*other.grad) *\
+//                         (other.value*other.grad - other.value*other.grad).transpose()
+//                      )
+//                   ) / (bottom*bottom);
+//    /**/
+
+
+//    return result;
+
+// }
+
+
 
 //-------------------------
-// implementation
 // printing
 void AD::print()
 {
