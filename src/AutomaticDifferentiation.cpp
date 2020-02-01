@@ -87,7 +87,11 @@ class AD {
    }
 
    //-------------------------
-   // operations
+   // unary operations
+   AD operator-();
+
+   //-------------------------
+   // binary operations
    AD operator+(AD other);
    AD operator-(AD other);
    AD operator*(AD other);
@@ -112,7 +116,19 @@ class AD {
 
 
 //-------------------------
-// operations
+// unary operations
+AD AD::operator-() {
+
+   Number new_value = -value;
+   int space_size = space_dim;
+   AD result(new_value, space_size);
+   result.grad = -grad;
+   result.hess = -hess;
+   return result;
+}
+
+//-------------------------
+// binary operations
 
 AD AD::operator+(AD other) {
 
@@ -329,11 +345,11 @@ void AD::print_size()
 //-------------------------
 // r-operations
 AD operator+(Number self , AD other) {
-
    return other + self;
-
 }
-
+AD operator-(Number self , AD other) {
+   return -other + self;
+}
 
 
 
@@ -370,7 +386,9 @@ int main() {
 
 
    AD r1 = 1.0f+a;
+   AD r2 = 1.0f-a;
    r1.print();
+   r2.print();
 
    return 0;
 }
