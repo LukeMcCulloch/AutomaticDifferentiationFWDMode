@@ -112,7 +112,6 @@ class AD {
 
 
 //-------------------------
-// implementation
 // operations
 
 AD AD::operator+(AD other) {
@@ -323,6 +322,24 @@ void AD::print_size()
   std::cout << " design space size: (" << space_dim << ")" << std::endl;
 }
 
+
+
+
+
+//-------------------------
+// r-operations
+AD operator+(Number self , AD other) {
+
+   return other + self;
+
+}
+
+
+
+
+
+
+
 int main() {
    std::cout  << "Eigen version: " << EIGEN_MAJOR_VERSION  << "."<< EIGEN_MINOR_VERSION  << std::endl;
    AD a(2.0f, 2, 0, "a");
@@ -351,5 +368,10 @@ int main() {
    s3.print();
    s4.print();
 
+
+   AD r1 = 1.0f+a;
+   r1.print();
+
    return 0;
 }
+
