@@ -325,8 +325,8 @@ void AD::print_size()
 
 int main() {
    std::cout  << "Eigen version: " << EIGEN_MAJOR_VERSION  << "."<< EIGEN_MINOR_VERSION  << std::endl;
-   AD a(2.0, 2, 0, "a");
-   AD b(3.0, 2, 1, "b");
+   AD a(2.0f, 2, 0, "a");
+   AD b(3.0f, 2, 1, "b");
    a.print();
    b.print();
 
@@ -342,10 +342,10 @@ int main() {
    AD f = a/b;
    f.print();
 
-   AD s1 = a+1.0;
-   AD s2 = a-1.0;
-   AD s3 = a*1.0;
-   AD s4 = a/1.0;
+   AD s1 = a+1.0f;
+   AD s2 = a-1.0f;
+   AD s3 = a*1.0f;
+   AD s4 = a/1.0f;
    s1.print();
    s2.print();
    s3.print();
