@@ -92,7 +92,7 @@ class AD {
 
    //-------------------------
    // binary operations
-   AD operator+(AD other);
+   AD operator+(const AD& other);
    AD operator-(AD other);
    AD operator*(AD other);
    AD operator/(AD other);
@@ -130,7 +130,7 @@ AD AD::operator-() {
 //-------------------------
 // binary operations
 
-AD AD::operator+(AD other) {
+AD AD::operator+(const AD& other) {
 
    Number new_value = value + other.value;
    //std::cout << " adding " << value << " to " << other.value << std::endl;
