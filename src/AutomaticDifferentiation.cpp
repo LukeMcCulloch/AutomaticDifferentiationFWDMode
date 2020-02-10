@@ -93,9 +93,9 @@ class AD {
    //-------------------------
    // binary operations
    AD operator+(const AD& other);
-   AD operator-(AD other);
-   AD operator*(AD other);
-   AD operator/(AD other);
+   AD operator-(const AD& other);
+   AD operator*(const AD& other);
+   AD operator/(const AD& other);
 
    AD operator+(Number other);
    AD operator-(Number other);
@@ -143,7 +143,7 @@ AD AD::operator+(const AD& other) {
 
 }
 
-AD AD::operator-(AD other) {
+AD AD::operator-(const AD& other) {
 
    Number new_value = value - other.value;
    int space_size = space_dim;
@@ -153,7 +153,7 @@ AD AD::operator-(AD other) {
    return result;
 }
 
-AD AD::operator*(AD other) {
+AD AD::operator*(const AD& other) {
 
    Number new_value = value * other.value;
    int space_size = space_dim;
@@ -169,7 +169,7 @@ AD AD::operator*(AD other) {
 }
 
 
-AD AD::operator/(AD other) {
+AD AD::operator/(const AD& other) {
 
    Number new_value = value / other.value;
    int space_size = space_dim;
