@@ -344,10 +344,10 @@ void AD::print_size()
 
 //-------------------------
 // r-operations
-AD operator+(Number self , AD other) {
+AD operator+( Number self , AD& other) {
    return other + self;
 }
-AD operator-(Number self , AD other) {
+AD operator-( Number self , AD& other) {
    return -other + self;
 }
 
