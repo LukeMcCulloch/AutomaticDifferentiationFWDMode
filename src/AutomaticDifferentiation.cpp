@@ -400,11 +400,11 @@ int main() {
    r1.print();
    r2.print();
 
-
-   std::cout << r2.grad << std::endl;
-   r2.grad(0,0) = 1.;
-   r2.grad(1,0) = 3.1459;
-   std::cout << r2.grad << std::endl;
+   //just testing Eigen a bit
+   // std::cout << r2.grad << std::endl;
+   // r2.grad(0,0) = 1.;
+   // r2.grad(1,0) = 3.1459;
+   // std::cout << r2.grad << std::endl;
 
    return 0;
 }
