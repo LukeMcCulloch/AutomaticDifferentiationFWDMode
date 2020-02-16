@@ -22,9 +22,11 @@
 #else
 #endif
 
-typedef float Number;
 
 using Eigen::Dynamic;
+
+
+typedef float Number;
 
 
 //https://eigen.tuxfamily.org/dox/TopicFunctionTakingEigenTypes.html
@@ -109,7 +111,6 @@ class AD {
    void print_hess();
    void print_size();
    void print();
-
 
 };
 
@@ -363,6 +364,15 @@ int main() {
    a.print();
    b.print();
 
+   // struct cell_data{
+   //      float xc;  // Cell-center coordinate
+   //      Array2D<float>   u = Array2D<float>(3,1);  // Conservative variables = [rho, rho*u, rho*E]
+   //      Array2D<float>  u0 = Array2D<float>(3,1);  // Conservative variables at the previous time step
+   //      Array2D<float>  ww = Array2D<float>(3,1);  // Primitive variables = [rho, u, p]
+   //      Array2D<float>  dw = Array2D<float>(3,1);  // Slope (difference) of primitive variables
+   //      Array2D<float> res = Array2D<float>(3,1);  // Residual = f_{j+1/2) - f_{j-1/2)
+   //  };
+
    AD c = a + b;
    c.print();
 
@@ -389,6 +399,12 @@ int main() {
    AD r2 = 1.0f-a;
    r1.print();
    r2.print();
+
+
+   std::cout << r2.grad << std::endl;
+   r2.grad(0,0) = 1.;
+   r2.grad(1,0) = 3.1459;
+   std::cout << r2.grad << std::endl;
 
    return 0;
 }
