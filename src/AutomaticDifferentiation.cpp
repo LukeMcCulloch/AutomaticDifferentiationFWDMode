@@ -1,29 +1,6 @@
 
 
-#include <iostream>
-
-//--------------------
-// Linux:
-#ifdef __linux__ 
-#include <eigen/Eigen/Dense>
-#include  <eigen/Eigen/Core>
-
-//--------------------
-// Windows:
-#elif _WIN32
-#include <Eigen\Dense>
-#include  <Eigen\Core>
-
-//--------------------
-// OSX (not correct yet)
-#elif __APPLE__ 
-#include <eigen/Eigen/Dense>
-#include  <eigen/Eigen/Core>
-#else
-#endif
-
-
-using Eigen::Dynamic;
+#include "../include/GetEigen.h"
 
 
 typedef float Number;
@@ -394,17 +371,33 @@ int main() {
    s3.print();
    s4.print();
 
-
+   std::cout << "a = " << std::endl;
+   a.print();
+   
    AD r1 = 1.0f+a;
    AD r2 = 1.0f-a;
    r1.print();
    r2.print();
+
+   AD r11 = 1.0+a;
+   AD r21 = 1.0-a;
+   r11.print();
+   r21.print();
+
+
+   AD r3 = a+1.0f;
+   AD r4 = a-1.0f;
+   r3.print();
+   r4.print();
 
    //just testing Eigen a bit
    // std::cout << r2.grad << std::endl;
    // r2.grad(0,0) = 1.;
    // r2.grad(1,0) = 3.1459;
    // std::cout << r2.grad << std::endl;
+
+
+   //std::cout << r1.hess.inverse() << std::endl;
 
    return 0;
 }
