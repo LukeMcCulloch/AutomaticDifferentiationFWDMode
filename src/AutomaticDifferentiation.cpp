@@ -89,6 +89,8 @@ class AD {
    void print_size();
    void print();
 
+   //-------------------------
+   //AD One = 
 };
 
 
@@ -263,7 +265,6 @@ AD AD::operator*(Number other) {
 
 }
 
-
 AD AD::operator/(Number other) {
 
    Number new_value = value / other;
@@ -320,6 +321,8 @@ void AD::print_size()
 
 
 
+
+
 //-------------------------
 // r-operations
 AD operator+( Number self , AD& other) {
@@ -328,7 +331,14 @@ AD operator+( Number self , AD& other) {
 AD operator-( Number self , AD& other) {
    return -other + self;
 }
-
+AD operator*( Number self , AD& other) {
+   return other * self;
+}
+AD operator/( Number self , AD& other) {
+   int sizeofOthergrad = other.grad.size();
+   AD One(1.0f, sizeofOthergrad, 0, "one");
+   return self * One / other;//fix to handle float/AD
+}
 
 
 
@@ -371,9 +381,10 @@ int main() {
    s3.print();
    s4.print();
 
+   std::cout << "-------------------------" << std::endl;
    std::cout << "a = " << std::endl;
    a.print();
-   
+
    AD r1 = 1.0f+a;
    AD r2 = 1.0f-a;
    r1.print();
@@ -389,6 +400,17 @@ int main() {
    AD r4 = a-1.0f;
    r3.print();
    r4.print();
+
+
+   std::cout << "-------------------------" << std::endl;
+   std::cout << "a = " << std::endl;
+   a.print();
+   AD r5 = 1.0/a;
+   AD r6 = 1.0*a;
+   std::cout << "r5 = " << std::endl;
+   r5.print();
+   std::cout << "r6 = " << std::endl;
+   r6.print();
 
    //just testing Eigen a bit
    // std::cout << r2.grad << std::endl;
